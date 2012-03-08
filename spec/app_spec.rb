@@ -51,6 +51,22 @@ describe Report do
 
       report.data.should == [{"date" => "2012-01-02", "y" => 2}, {"date" => "2012-01-01", "y" => 1}]
     end
+
+    it "should convert date objects to YYYY-MM-DD" do
+      report = Report.new("temp")
+
+      report.add({date: Date.today, y: 2})
+
+      report.data.should == [{"date" => Date.today.strftime("%Y-%m-%d"), "y" => 2}]
+    end
+
+    it "should convert a number into a hash with today's date for storage" do
+      report = Report.new("temp")
+
+      report.add(2)
+
+      report.data.should == [{"date" => Date.today.strftime("%Y-%m-%d"), "y" => 2}]
+    end
   end
 
   describe '#data_paired_with_date' do

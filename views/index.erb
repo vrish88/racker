@@ -15,22 +15,28 @@
   .hidden {
     display: none;
   }
+  li {
+    width: 50%;
+    float: left;
+    display: inline;
+    list-style: none;
+  }
 </style>
 <body>
 <ul>
   <% @reports.each do |stat| %>
     <li>
       <h3><%= stat.name %></h3>
-      <div id="chart">
+      <div class="graph" id="<%= stat.name.gsub(' ', '_') %>">
 
       </div>
       <script type="text/javascript">
         Morris.Line({
-          element: 'chart',
+          element: <%= stat.name.gsub(' ', '_') %>,
           data: <%= stat.to_morris_data %>,
           xkey: 'x',
           ykeys: ['y'],
-          labels: ['Series A']
+          labels: ['<%= stat.name %>']
         });
 
       </script>

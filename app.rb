@@ -39,6 +39,10 @@ class Report
   end
 
   def add(datum)
+    if datum.kind_of?(Numeric) || datum.kind_of?(String)
+      datum = {date: Date.today, y: datum.to_s.strip}
+    end
+
     Racker.redis.lpush(name, JSON.generate(datum))
   end
 
