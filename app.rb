@@ -5,7 +5,8 @@ require 'json'
 
 module Racker
   def self.redis
-    Redis.new
+    uri = URI.parse(ENV["REDISTOGO_URL"])
+    @redis ||= Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
   end
 end
 
@@ -61,7 +62,6 @@ class App < Sinatra::Base
 
   set :views,  "#{dir}/views"
   set :public_folder, "#{dir}/public"
-
 
   get '/' do
     @reports = Report.all
