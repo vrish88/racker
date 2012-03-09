@@ -65,7 +65,7 @@ describe Report do
 
       report.add(2)
 
-      report.data.should == [{"date" => Date.today.strftime("%Y-%m-%d"), "y" => 2}]
+      report.data.should == [{"date" => Date.today.strftime("%Y-%m-%d"), "y" => "2"}]
     end
   end
 

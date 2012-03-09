@@ -13,7 +13,7 @@ end
 class Report
   def self.all
     Racker.redis.smembers("reports").map do |report|
-      json = Racker.redis.lrange(report, 0, -1).collect do |json|
+      json = Racker.redis.smembers(report).collect do |json|
         JSON.parse(json)
       end
 
@@ -34,7 +34,7 @@ class Report
   end
 
   def data
-    Racker.redis.lrange(@name, 0, -1).collect do |redis_data|
+    Racker.redis.smembers(@name).collect do |redis_data|
       JSON(redis_data)
     end
   end
@@ -44,7 +44,7 @@ class Report
       datum = {date: Date.today, y: datum.to_s.strip}
     end
 
-    Racker.redis.lpush(name, JSON.generate(datum))
+    Racker.redis.sadd(name, JSON.generate(datum))
   end
 
   def to_morris_data
