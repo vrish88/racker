@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'rack/test'
-require 'racker'
 
 describe "App" do
   include Rack::Test::Methods

@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'ostruct'
-require 'racker'
+require File.expand_path(File.dirname(__FILE__ ) + '/../app')
 
 def session
   @session ||= {}
